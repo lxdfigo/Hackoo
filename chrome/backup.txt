@@ -1,0 +1,56 @@
+
+
+function handleOpenIDResponse(openid_args) {
+alert(openid_args);
+  YAHOO.util.Connect.asyncRequest('GET', '/openid_finish?'+openid_args,
+      {'success': function(r) {
+//r.responseText
+              alert("suceess"); 
+         }}); 
+}
+     handleOpenIDResponse(name);
+
+
+
+//==============================================================   
+var orderDoc;   
+//获取xml文件   
+function loadXmlFile(xmlFile){   
+  var xmlDom = null;   
+  if (window.ActiveXObject){   
+    xmlDom = new ActiveXObject("Microsoft.XMLDOM");   
+    xmlDom.async=false;   
+   xmlDom.load(xmlFile)||xmlDom.loadXML(xmlFile);//如果用的是XML字符串//如果用的是xml文件   
+  }else if (document.implementation && document.implementation.createDocument){   
+    var xmlhttp = new window.XMLHttpRequest();   
+    xmlhttp.open("GET", xmlFile, false);   
+    xmlhttp.send(null);   
+    xmlDom = xmlhttp.responseXML;   
+  }else{   
+    xmlDom = null;   
+  }   
+  return xmlDom;   
+}  
+function getDataByid(number)   
+{     
+alert(number);
+    var time =orderDoc.getElementsByTagName("time")[number]; 
+
+alert(time.value);    
+    return time.value;   
+}   
+
+//获得页面内容   
+function getContent(){   
+    //exBrows();   
+    orderDoc=loadXmlFile("D:\\x.xml"); 
+        var items=orderDoc.getElementsByTagName("results").length;   
+        alert(orderDoc.getElementsByTagName("Item").length);   
+        var htmlstr="";   
+        for(i=0;i<items;i++){ 
+            htmlstr+=getDataByid(i);   
+        }   
+        htmlstr+='</ul>'   
+        //document.write(stringsss);   
+alert(htmlstr);
+} 

@@ -1,0 +1,52 @@
+<html>
+	<title>Call webservice with javascript and xmlhttp.</title>
+<body>
+	<mce:script language="javascript"><!--
+ 
+
+	//test function with get method.
+	function RequestByGet(data){ 
+		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); 
+		//Webservice location.
+		var URL="http://localhost:1323/WebSite6/Service.asmx/SayHelloTo?Name=Zach";
+		xmlhttp.Open("GET",URL, false); 
+		xmlhttp.SetRequestHeader ("Content-Type","text/xml; charset=utf-8"); 
+		xmlhttp.SetRequestHeader ("SOAPAction","http://tempuri.org/SayHelloTo"); 
+		xmlhttp.Send(data); 
+		var result = xmlhttp.status; 
+		//OK
+		if(result==200) { 
+			document.write(xmlhttp.responseText); 
+		} 
+		xmlhttp = null; 
+	} 
+
+	//test function with post method
+	function RequestByPost(value)
+	{
+		var data;
+		data = '<?xml version="1.0" encoding="utf-8"?>'; 
+		data = data + '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">'; 
+		data = data + '<soap:Body>'; 
+		data = data + '<SayHelloTo xmlns="http://tempuri.org/">'; 
+		data = data + '<Name>'+value+'</Name>'; 
+		data = data + '</SayHelloTo>'; 
+		data = data + '</soap:Body>'; 
+		data = data + '</soap:Envelope>'; 
+
+		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); 
+		var URL="http://localhost:1323/WebSite6/Service.asmx";
+		xmlhttp.Open("POST",URL, false); 
+		xmlhttp.SetRequestHeader ("Content-Type","text/xml; charset=gb2312"); 
+		xmlhttp.SetRequestHeader ("SOAPAction","http://tempuri.org/SayHelloTo"); 
+		xmlhttp.Send(data); 
+		document.write( xmlhttp.responseText); 
+	}
+
+	
+// --></mce:script>
+
+	<input type="button" value="CallWebserviceByGet" onClick="RequestByGet(null)">
+	<input type="button" value="CallWebserviceByPost" onClick="RequestByPost('Zach')">
+</body>
+</html>

@@ -1,0 +1,158 @@
+﻿    
+<html>    
+<LINK REL=StyleSheet HREF="button.css" TYPE="text/css" MEDIA=screen>
+<script type="text/javascript" src="connection-min.js"></script> 
+<script language="javascript" >
+function setCookie(c_name, value, expiredays){
+ 　　　　var exdate=new Date();
+ 　　　　exdate.setTime(exdate.getTime() + expiredays * 60 * 1000);
+ 　　　　document.cookie=c_name+ "=" + escape(value) + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+}
+
+function getCookie(c_name){
+　　　　if (document.cookie.length>0){　　
+　　　　　　c_start=document.cookie.indexOf(c_name + "=")　　
+            if (c_start!=-1){ 
+　　　　　　　　c_start=c_start + c_name.length+1　　
+　　　　　　　　c_end=document.cookie.indexOf(";",c_start)　　
+　　　　　　　　if (c_end==-1) c_end=document.cookie.length　　
+　　　　　　　　return unescape(document.cookie.substring(c_start,c_end))　
+　　　　　　} 
+　　　　}
+　　　　return ""
+}
+function delCookie(name)
+{
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval=getCookie(name);
+    if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+}
+
+function onload(){
+    //delCookie("Hackoo");
+    document.getElementById("options").style.visibility="hidden";
+
+    if(getCookie ("Hackoo"))
+    {
+	switchDiv();
+    }
+}
+
+
+function switchDiv(){
+    document.getElementById("options").style.visibility ="visible";
+
+    document.getElementById("login").style.visibility="hidden";
+}
+function httprequest(){
+     var name = "Hackoo";
+     var pwd = "1223456";
+
+    if (window.XMLHttpRequest){
+            xmlhttp = new XMLHttpRequest();
+        }else{
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+    var query = "http://localhost:8000/cgi-bin/entry.py?Hackoo";
+
+　　xmlhttp.onreadystatechange = processStateChange;
+　　xmlhttp.open("GET", query, false);
+    //name=login_form&id=login_form&
+　　xmlhttp.send(null);
+    function processStateChange(){
+        if (xmlhttp.readyState == 4){
+        　　if (xmlhttp.status == 200){
+                  // alert(xmlhttp.responseText);
+               
+        　　}else{
+                 //   alert(xmlhttp.responseText);
+            }
+    　    }
+    }
+}
+
+function login(){
+
+	if (document.getElementById("name").value == "Hackoo"){
+		//document.cookie = "name=Hackoo;expires=30"
+                setCookie('Hackoo','Darren',3);
+	}
+       switchDiv();
+       httprequest();
+       return;
+}
+
+function showMonths(){
+window.open("http://localhost:8000/cgi-bin/mychart1.py")
+}
+
+function showYear(){
+window.open("http://localhost:8000/cgi-bin/mychart2.py")
+}
+
+function showPie(){
+window.open("http://localhost:8000/cgi-bin/mychart3.py")
+}
+
+function showStatistic(){
+window.open("http://localhost:8000/cgi-bin/mychart4.py")
+}
+
+function httprequest(){
+     var name = "Hackoo";
+     var pwd = "1223456";
+
+    if (window.XMLHttpRequest){
+            xmlhttp = new XMLHttpRequest();
+        }else{
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+    var query = "http://localhost:8000/cgi-bin/entry.py?Hackoo";
+
+　　xmlhttp.onreadystatechange = processStateChange;
+　　xmlhttp.open("GET", query, false);
+    //name=login_form&id=login_form&
+　　xmlhttp.send(null);
+    function processStateChange(){
+        if (xmlhttp.readyState == 4){
+        　　if (xmlhttp.status == 200){
+                  // alert(xmlhttp.responseText);
+               
+        　　}else{
+                 //   alert(xmlhttp.responseText);
+            }
+    　    }
+    }
+}
+function OperationSetting(){
+window.open("http://localhost:8000/cgi-bin/operationsetting.py")
+}
+</script>    
+ 
+<body onload="onload()">
+<div name="login" id="login" style=”width:100px;" >
+<p><image src="images\\logo.png" style=”width:100px;" > </p>
+<p><b><font color="#a56111">ID：</font></b><br>
+<input type="text" value="Hackoo" id="name"/></p>
+<p><b><font color="#a56111">Password：</font></b><br>
+<input type="password" value="123456" id="pwd"/></p>
+<p><button class="button orange" onclick="login()">Login</button></p>
+</div>
+<div id="options" style="position:absolute;width:100px;top:0px;">
+<image src="images\\optionlogo.png" ><br><br>
+
+<image src="images\\stars.png" >
+<br><br>
+<button class="button orange" onclick="showMonths()">One Month</button><br><br>
+<button class="button orange" onclick="showYear()">One Year</button><br><br>
+<button class="button orange" onclick="showPie()">Action Frequency</button><br><br>
+<button class="button orange" onclick="showStatistic()">Compare Statistic</button></p>
+
+<p><button class="button gray" onclick="OperationSetting()">Operation Setting</button></p>
+
+</div>
+</body>
+</html>

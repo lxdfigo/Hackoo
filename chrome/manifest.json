@@ -1,0 +1,36 @@
+﻿{
+  
+"name": "Hackoo",
+  
+"version": "1.0",
+  
+"description": "Our Hackoo",
+  
+"icons": {"16": "icons\\icon_16.png", 
+          "48": "icons\\icon_48.png",
+          "128": "icons\\icon_128.png"}, 
+"manifest_version":2,
+"browser_action": {
+    
+"default_icon" : "icons\\icon_48.png",
+"popup": "popup.html"
+},
+	"content_scripts": [{
+		"matches": ["http://*/*", "https://*/*", "ftp://*/*", "file:///*"],
+		"js": ["controlpage.js"],
+		"run_at": "document_start",
+		"all_frames": true
+	}, {
+		"matches": ["http://*/*", "https://*/*", "ftp://*/*", "file:///*"],
+		"js": ["controlpage.js"],
+		"run_at": "document_end",
+		"all_frames": true
+	}],
+"background":
+{
+"scripts":["background.js"]
+},
+"permissions": [
+"tabs", "http://*/*","notifications" 
+]
+}
